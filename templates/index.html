@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Number Converter</title>
     <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="icon" href="/static/css/download.png" type="image/x-icon">
+
 </head>
+
 <body>
     <div class="container">
         <h1>Number Converter</h1>
@@ -15,14 +19,15 @@
             <button type="submit"><strong>Convert</strong></button>
         </form>
         {% if error_message %}
-            <div class="error">{{ error_message }}</div>
+        <div class="error">{{ error_message }}</div>
         {% endif %}
         {% if binary_result %}
-            <div class="result">
-                <p><strong>Binary:</strong> {{ binary_result }}</p>
-                <p><strong>Hexadecimal:</strong> {{ hex_result }}</p>
-            </div>
+        <div class="result">
+            <p><strong>Binary:</strong> {{ binary_result }}</p>
+            <p><strong>Hexadecimal:</strong> {{ hex_result }}</p>
+        </div>
         {% endif %}
     </div>
 </body>
+
 </html>
