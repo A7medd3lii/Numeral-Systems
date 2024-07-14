@@ -26,10 +26,17 @@ The Number Converter Web Application is a simple and effective tool designed to 
 
 ### Installation
 
- Install the dependencies:
+- Create and activate virtual environment:
 
 ```bash
-pip install -r requirements.txt
+python3 -m venv venv
+source venv/bin/activate
+```
+
+- Install the dependencies:
+
+```bash
+ pip install -r requirements.txt
 ```
 
 ### Running the Application
