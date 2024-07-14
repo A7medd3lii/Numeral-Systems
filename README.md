@@ -26,12 +26,11 @@ The Number Converter Web Application is a simple and effective tool designed to 
 
 ### Installation
 
-1. Clone the repository:
  Install the dependencies:
 
-    ```bash
-    pip install -r requirements.txt
-    ```
+```bash
+pip install -r requirements.txt
+```
 
 ### Running the Application
 
