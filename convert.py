@@ -6,9 +6,11 @@ def convert_number(input_number, from_base, to_base):
     if input_number.startswith('0') and len(input_number) > 1:
         return None, None, "Invalid input: Numbers should not begin with Zero.", None
     
-    if not input_number.isdigit():
+    # Check if input number is valid for the given base
+    valid_digits = '0123456789abcdefABCDEF'[:from_base]
+    if not all(char in valid_digits for char in input_number):
         return None, None, "Invalid input: Please enter digits only.", None
-
+    
     try:
         decimal_number = int(input_number, from_base)
     except ValueError:

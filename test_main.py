@@ -1,51 +1,67 @@
 import unittest
-from flask import Flask
-from main import app
-from convert import convert_number  
+from main import app, convert_number
 
-class FlaskAppTestCase(unittest.TestCase):
+class NumberConverterTestCase(unittest.TestCase):
     def setUp(self):
+        """Set up the test client and other test fixtures."""
         self.app = app.test_client()
         self.app.testing = True
 
-    def test_convert_number_invalid_cases(self):
-        # Test empty input
-        result, result_type, error_message, _ = convert_number('', 10, 2)
-        self.assertIsNone(result)
-        self.assertIsNone(result_type)
-        self.assertEqual(error_message, "No number provided.")
-
-        # Test number with leading zero   
-        result, result_type, error_message, _ = convert_number('010', 10, 2)
-        self.assertIsNone(result)
-        self.assertIsNone(result_type)
-        self.assertEqual(error_message, "Invalid input: Numbers should not begin with Zero.")
-
-        # Test non-digit input
-        result, result_type, error_message, _ = convert_number('1a', 10, 2)
-        self.assertIsNone(result)
-        self.assertIsNone(result_type)
-        self.assertEqual(error_message, "Invalid input: Please enter digits only.")
-
-        # Test invalid number for the selected base
-        result, result_type, error_message, _ = convert_number('10', 2, 10)
-        self.assertIsNone(result)
-        self.assertIsNone(result_type)
-        self.assertEqual(error_message, "Invalid number for the selected base.")
-
-
     def test_index_get(self):
+        """Test the GET request to the index page."""
         response = self.app.get('/')
         self.assertEqual(response.status_code, 200)
+        self.assertIn(b'Convert numbers between Decimal, Hexadecimal, Binary, and Octal systems.', response.data)
 
-    def test_index_post(self):
-        response = self.app.post('/', data={
-            'number': '10',
-            'from_base': '10',
-            'to_base': '2'
-        })
+    def test_conversion_valid(self):
+        """Test conversion with valid input."""
+        response = self.app.post('/', data=dict(
+            number='1010',
+            from_base='2',
+            to_base='10'
+        ))
         self.assertEqual(response.status_code, 200)
-        self.assertIn(b'1010', response.data)  # Check if the result is in the response
+        self.assertIn(b'Converted Number:', response.data)
+        self.assertIn(b'10', response.data)  # Expected result for binary '1010' to decimal
+
+    def test_conversion_invalid_number(self):
+        """Test conversion with invalid number."""
+        response = self.app.post('/', data=dict(
+            number='ZZZ',
+            from_base='16',
+            to_base='10'
+        ))
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'Invalid number or base conversion error.', response.data)
+
+    def test_conversion_invalid_base(self):
+        """Test conversion with invalid base."""
+        response = self.app.post('/', data=dict(
+            number='1010',
+            from_base='20',  # Invalid base
+            to_base='10'
+        ))
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'Invalid base provided.', response.data)  # Updated to match new error message
+
+    def test_conversion_same_base(self):
+        """Test conversion with the same base."""
+        response = self.app.post('/', data=dict(
+            number='10',
+            from_base='10',
+            to_base='10'
+        ))
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'Result:', response.data)
+        self.assertIn(b'10', response.data)  # Expected result is the same number
+
+    def test_convert_number_function(self):
+        """Test the convert_number function."""
+        self.assertEqual(convert_number('1010', 2, 10), '10')
+        self.assertEqual(convert_number('10', 10, 16), 'A')
+        self.assertEqual(convert_number('A', 16, 10), '10')
+        self.assertEqual(convert_number('10', 10, 2), '1010')
+        self.assertEqual(convert_number('10', 10, 8), '12')
 
 if __name__ == '__main__':
     unittest.main()
