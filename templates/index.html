@@ -7,27 +7,63 @@
     <title>Number Converter</title>
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="icon" href="/static/css/download.png" type="image/x-icon">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
 <body>
+    <header>
+        <h1>Systems Number</h1>
+        <p>Convert numbers between Decimal, Hexadecimal, Binary, and Octal systems.</p>
+    </header>
+
+    <div>
+        <label for="ggg"></label>
+    </div>
+
     <div class="container">
-        <h1>Number Converter</h1>
         <form method="POST">
             <label for="number"><strong>Enter a number :</strong></label>
             <input type="text" id="number" name="number" required>
+
+            <label for="from_base"><strong>From:</strong></label>
+            <select id="from_base" name="from_base">
+                <option value="10">Decimal</option>
+                <option value="16">Hexadecimal</option>
+                <option value="2">Binary</option>
+                <option value="8">Octal</option>
+            </select>
+
+            <label for="to_base"><strong>To:</strong></label>
+            <select id="to_base" name="to_base">
+                <option value="10">Decimal</option>
+                <option value="16">Hexadecimal</option>
+                <option value="2">Binary</option>
+                <option value="8">Octal</option>
+            </select>
+
             <button type="submit"><strong>Convert</strong></button>
         </form>
+
         {% if error_message %}
         <div class="error">{{ error_message }}</div>
         {% endif %}
-        {% if binary_result %}
+
+        {% if result %}
         <div class="result">
-            <p><strong>Binary:</strong> {{ binary_result }}</p>
-            <p><strong>Hexadecimal:</strong> {{ hex_result }}</p>
+            <p><strong>{{ result_type }}:</strong> {{ result }}</p>
         </div>
         {% endif %}
     </div>
+
+    <footer>
+        <span class="footer-text">Copyrights @ A7medd 3lii</span>
+        <div class="social-icons">
+            <a href="https://www.linkedin.com/in/ahmed-ali-85b264266?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+                target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="https://wa.me/+201150520142" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://github.com/A7medd3lii" target="_blank"><i class="fab fa-github"></i></a>
+        </div>
+    </footer>
 </body>
 
 </html>

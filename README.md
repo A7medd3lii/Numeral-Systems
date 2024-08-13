@@ -68,3 +68,24 @@ To run the Docker container, execute:
 ```bash
 docker run -p 8080:8080 number-converter-app
 ```
+
+### push docker image to docker hub
+
+- step 1: login to docker hub
+
+```bash
+docker login
+```
+
+- step 2: build the docker image
+
+```bash
+docker build -t a7medd3lii/number-systems:v1.0 .
+
+```
+
+- step 3: push the docker image
+
+```bash
+docker push a7medd3lii/number-systems:v1.0
+```

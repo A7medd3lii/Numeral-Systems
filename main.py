@@ -2,23 +2,32 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
+def convert_number(input_number, from_base, to_base):
+    try:
+        decimal_number = int(input_number, from_base)
+    except ValueError:
+        return None, None, None, "Invalid number for the selected base."
+    
+    if to_base == 2:
+        return bin(decimal_number)[2:], "Binary", None, None
+    elif to_base == 8:
+        return oct(decimal_number)[2:], "Octal", None, None
+    elif to_base == 16:
+        return hex(decimal_number)[2:], "Hexadecimal", None, None
+    else:
+        return str(decimal_number), "Decimal", None, None
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    binary_result = ''
-    hex_result = ''
-    error_message = ''
+    result, result_type, error_message = None, None, None
+    
     if request.method == 'POST':
-        number = request.form['number']
-        if number.isdigit():
-            if number.startswith('0') and len(number) > 1:
-                error_message = 'Invalid input: Numbers should not begin with Zero.'
-            else:
-                number = int(number)
-                binary_result = bin(number)[2:] 
-                hex_result = hex(number)[2:].upper()  
-        else:
-            error_message = 'Invalid input: Please enter a valid number.'
-    return render_template('index.html', binary_result=binary_result, hex_result=hex_result, error_message=error_message)
+        input_number = request.form['number']
+        from_base = int(request.form['from_base'])
+        to_base = int(request.form['to_base'])
+        result, result_type, _, error_message = convert_number(input_number, from_base, to_base)
+    
+    return render_template('index.html', result=result, result_type=result_type, error_message=error_message)
 
 
 if __name__ == '__main__':
