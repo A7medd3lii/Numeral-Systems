@@ -21,11 +21,11 @@ class NumberConverterTestCase(unittest.TestCase):
             to_base='10'
         ))
         self.assertEqual(response.status_code, 200)
-        self.assertIn(b'Converted Number:', response.data)
-        self.assertIn(b'10', response.data)  # Expected result for binary '1010' to decimal
+        self.assertIn(b'Decimal :', response.data)
+        self.assertIn(b'10', response.data)  # Expected result for binary '1010' to decimal '10'
 
     def test_conversion_invalid_number(self):
-        """Test conversion with invalid number."""
+        """Test conversion with an invalid number."""
         response = self.app.post('/', data=dict(
             number='ZZZ',
             from_base='16',
@@ -35,14 +35,14 @@ class NumberConverterTestCase(unittest.TestCase):
         self.assertIn(b'Invalid number or base conversion error.', response.data)
 
     def test_conversion_invalid_base(self):
-        """Test conversion with invalid base."""
+        """Test conversion with an invalid base."""
         response = self.app.post('/', data=dict(
             number='1010',
             from_base='20',  # Invalid base
             to_base='10'
         ))
         self.assertEqual(response.status_code, 200)
-        self.assertIn(b'Invalid base provided.', response.data)  # Updated to match new error message
+        self.assertIn(b'Invalid base provided.', response.data)
 
     def test_conversion_same_base(self):
         """Test conversion with the same base."""
@@ -52,7 +52,7 @@ class NumberConverterTestCase(unittest.TestCase):
             to_base='10'
         ))
         self.assertEqual(response.status_code, 200)
-        self.assertIn(b'Result:', response.data)
+        self.assertIn(b'Decimal :', response.data)
         self.assertIn(b'10', response.data)  # Expected result is the same number
 
     def test_convert_number_function(self):

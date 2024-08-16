@@ -36,13 +36,15 @@ def index():
             error_message = "Invalid base provided."
         elif from_base == to_base:
             result = number
-            result_type = "Result"
+            result_type = "Decimal"
         else:
             result = convert_number(number, from_base, to_base)
             if result is None:
                 error_message = "Invalid number or base conversion error."
             else:
-                result_type = "Converted Number"
+                # Assign result_type based on the to_base selected by the user
+                base_labels = {2: "Binary", 8: "Octal", 10: "Decimal", 16: "Hexadecimal"}
+                result_type = base_labels[to_base]
 
     return render_template('index.html', result=result, result_type=result_type, error_message=error_message)
 

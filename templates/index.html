@@ -16,10 +16,6 @@
         <p>Convert numbers between Decimal, Hexadecimal, Binary, and Octal systems.</p>
     </header>
 
-    <div>
-        <label for="ggg"></label>
-    </div>
-
     <div class="container">
         <form method="POST">
             <label for="number"><strong>Enter a number :</strong></label>
@@ -50,7 +46,7 @@
 
         {% if result %}
         <div class="result">
-            <p><strong>{{ result_type }}:</strong> {{ result }}</p>
+            <p><strong>{{ result_type }} :</strong> {{ result }}</p>
         </div>
         {% endif %}
     </div>

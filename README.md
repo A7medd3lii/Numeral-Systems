@@ -60,13 +60,13 @@ python test_main.py
 To build the Docker image, run:
 
 ```bash
-docker build -t number-converter-app .
+docker build -t systems-number .
 ```
 
 To run the Docker container, execute:
 
 ```bash
-docker run -p 8080:8080 number-converter-app
+docker run -p 5000:5000 systems-number
 ```
 
 ### push docker image to docker hub
