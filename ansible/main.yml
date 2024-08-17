@@ -7,14 +7,14 @@
   tasks:
     - name: Pull the Docker image from DockerHub
       docker_image:
-        name: a7medd3lii/number-systems
-        tag: v1.0
+        name: a7medd3lii/systems-number
+        tag: v1.1
         source: pull
-
+s
     - name: Run Docker container
       docker_container:
         name: systems-number
-        image: a7medd3lii/number-systems:v1.0
+        image: a7medd3lii/systems-number:v1.1
         state: started
         restart_policy: always
         ports:
