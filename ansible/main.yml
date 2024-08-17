@@ -1,0 +1,21 @@
+---
+- name: Setup and Run systems number App in Docker Container
+  hosts: Systems Number  
+  become: true
+  roles:
+    - docker 
+  tasks:
+    - name: Pull the Docker image from DockerHub
+      docker_image:
+        name: a7medd3lii/number-systems
+        tag: v1.0
+        source: pull
+
+    - name: Run Docker container
+      docker_container:
+        name: systems-number
+        image: a7medd3lii/number-systems:v1.0
+        state: started
+        restart_policy: always
+        ports:
+          - "80:5000"
