@@ -29,3 +29,13 @@ jobs:
     - name: Run tests
       run: |
         python -m pytest test_main.py
+
+    - name: build docker image and push it to dockerhub
+      run: |
+        docker build -t systems-number . -f Dockerfile
+
+        docker tag systems-number a7medd3lii/systems-number:v1.1
+
+        docker login -u a7medd3lii -p ${{secrets.DOCKERHUB_PASSWORD}}
+        
+        docker push a7medd3lii/systems-number:v1.1
