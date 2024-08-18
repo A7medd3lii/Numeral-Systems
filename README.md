@@ -52,7 +52,7 @@ python main.py
 To run the unit tests, execute:
 
 ```bash
-python test_main.py
+python unittest test_main.py
 ```
 
 ### Dockerizing the Application
@@ -88,4 +88,10 @@ docker build -t a7medd3lii/number-systems:v1.0 .
 
 ```bash
 docker push a7medd3lii/number-systems:v1.0
+```
+
+### Run ansible playbook
+
+```bash
+ansible-playbook -i hosts.ini main.yml
 ```

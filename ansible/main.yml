@@ -1,16 +1,37 @@
 ---
-- name: Setup and Run systems number App in Docker Container
-  hosts: Systems Number  
-  become: true
-  roles:
-    - docker 
+- hosts: all
+  become: yes  # Elevate privileges if necessary
+
   tasks:
+    # Install Docker
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+
+    - name: Change ownership of docker.sock
+      file:
+        path: /var/run/docker.sock
+        owner: root
+        group: docker
+        state: touch
+
+    - name: Change docker.sock file permissions
+      file:
+        path: /var/run/docker.sock
+        mode: "0666"
+
+    - name: Restart Docker
+      service:
+        name: docker
+        state: restarted
+
     - name: Pull the Docker image from DockerHub
       docker_image:
         name: a7medd3lii/systems-number
         tag: v1.1
         source: pull
-s
+
     - name: Run Docker container
       docker_container:
         name: systems-number
