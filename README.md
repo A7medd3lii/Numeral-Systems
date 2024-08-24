@@ -95,3 +95,15 @@ docker push a7medd3lii/number-systems:v1.0
 ```bash
 ansible-playbook -i hosts.ini main.yml
 ```
+
+### Initialize terraform
+
+```bash
+terraform init
+```
+
+### Aplly terraform
+
+```bash
+terraform apply
+```
