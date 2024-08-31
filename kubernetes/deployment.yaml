@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: systems-numbers-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: systems-numbers
+  template:
+    metadata:
+      labels:
+        app: systems-numbers
+    spec:
+      containers:
+      - name: systems-numbers
+        image: a7medd3lii/systems-number:v1.1
+        ports:
+        - containerPort: 5000
