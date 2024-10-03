@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Number Converter Web Application is a simple and effective tool designed to convert decimal numbers into binary and hexadecimal formats. Built using Python and Flask, this application features a user-friendly interface and a professional design for an excellent user experience.
+The Number Converter Web Application is a simple and effective tool designed to convert between nymeral systems like decimal, binary, hexadecimal, and octal system. Built using Python and Flask, this application features a user-friendly interface and a professional design for an excellent user experience.
 
 ## Features
 
@@ -106,4 +106,22 @@ terraform init
 
 ```bash
 terraform apply
+```
+
+### Apply kubernetes
+
+```bash
+kubectl apply -f deployment.yaml -f service.yaml 
+```
+
+### Check service running
+
+```bash
+kubectl get svc
+```
+
+### URL link generator
+
+```bash
+ minikube service ( service name ) --url
 ```
